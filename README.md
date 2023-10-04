@@ -124,8 +124,18 @@ After fixing the errors, 6294 warnings remain. running `cargo  +nightly  fix --b
 2. warning: path statement with no effect
 
 
-
 ### The good
+
+After fixing the rust output and getting rid of the errors, we get a working binary that seems to be working fine. Success!
+
+```bash
+vagrant@vagrant:/vagrant/sqlite-autoconf-3430100$ ./target/debug/sqlite3_in_rust 
+SQLite version 3.43.1 2023-09-11 12:01:27
+Enter ".help" for usage hints.
+Connected to a transient in-memory database.
+Use ".open FILENAME" to reopen on a persistent database.
+sqlite>
+```
 
 ### The bad
 
