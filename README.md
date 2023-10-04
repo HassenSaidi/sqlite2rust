@@ -120,8 +120,8 @@ Here are the stats for building the rust project:
 | 7      | 6294     |
 
 After fixing the errors, 6294 warnings remain. running `cargo  +nightly  fix --bin "sqlite3_in_rust"` reduces the number of warnings to 4282. There are two types of warnings:
-1. warning: `variable fOo should have a snake case name` with the siggestion that it should be rewritten as `f_oo`.
-2. warning: path statement with no effect
+1. warning: `variable/function fOo should have a snake case name` with the siggestion that it should be rewritten as `f_oo`.
+2. warning: `path statement with no effect`.
 
 
 ### The good
@@ -136,6 +136,8 @@ Connected to a transient in-memory database.
 Use ".open FILENAME" to reopen on a persistent database.
 sqlite>
 ```
+<style>p{color:red;}</style>
+<p>foo</p>
 
 ### The bad
 
