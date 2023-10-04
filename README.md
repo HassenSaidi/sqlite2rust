@@ -138,18 +138,18 @@ sqlite>
 ```
 
 ```c
-"The tool c2rust seems to be working. A significant code base such as sqlite can be made to work with little effort. A good understanding or C and rust is necessary to fix the rust build errors and ignore warnings that are not important to the correctness of the output".
+The tool c2rust seems to be working. A significant code base such as sqlite can be made to work with little effort. A good understanding or C and rust is necessary to fix the rust build errors and ignore warnings that are not important to the correctness of the output.
 ```
 ### The bad
 
 ```c
-"The tool c2rust seems to be working. A significant code base such as sqlite can be made to work with little effort. A good understanding or C and rust is necessary to fix the rust build errors and ignore warnings that are not important to the correctness of the output".
+The tool c2rust seems to be working. A significant code base such as sqlite can be made to work with little effort. A good understanding or C and rust is necessary to fix the rust build errors and ignore warnings that are not important to the correctness of the output.
 ```
 
 ### The ugly
 
 ```c
-"The tool c2rust seems to be working. A significant code base such as sqlite can be made to work with little effort. A good understanding or C and rust is necessary to fix the rust build errors and ignore warnings that are not important to the correctness of the output".
+The tool c2rust seems to be working. A significant code base such as sqlite can be made to work with little effort. A good understanding or C and rust is necessary to fix the rust build errors and ignore warnings that are not important to the correctness of the output.
 ```
 
 
