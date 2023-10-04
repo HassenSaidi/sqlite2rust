@@ -99,6 +99,22 @@ fn main() {
 
 ## Evaluation
 
+## stats
+
+Here are the stats for the original C code
+| Original C File Name | Lines of Code | Binary size |
+| -------------------- | ------------- | ----------- |
+| sqlite3.c            | 250808        |             |
+| shell.c              | 28615         | `sqlite3` 7962544     |
+
+Here are the stats for the generated rust code
+| Original rus File Name | Lines of Code | Binary size |
+| ---------------------- | ------------- | ----------- |
+| sqlite3.rs             | 212608        |             |
+| shell.rs               | 41717         | `sqlite3_in_rust` 19893720    |
+
+
+
 ### The good
 
 ### The bad
