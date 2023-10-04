@@ -5,6 +5,14 @@ This document describes the use of [c2rust](https://github.com/immunant/c2rust) 
 ## Using c2rust
 Here are the steps for translating sqlite C source code into rust:
 
+### Download c2rust
+
+The easiest way to download c2rust is to use the following commad:
+
+```bash
+cargo install c2rust
+```
+
 ### Download sqlite
 Download the source code [here](https://sqlite.org/download.html). The current version is https://sqlite.org/2023/sqlite-autoconf-3430100.tar.gz.
 
