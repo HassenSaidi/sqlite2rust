@@ -99,4 +99,10 @@ fn main() {
 
 ## Evaluation
 
+### The good
+
+### The bad
+
+### The ugly
+
 
