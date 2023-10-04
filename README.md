@@ -108,10 +108,20 @@ Here are the stats for the original C code
 | shell.c              | 28615         | `sqlite3` 7962544     |
 
 Here are the stats for the generated rust code
-| Original rus File Name | Lines of Code | Binary size |
-| ---------------------- | ------------- | ----------- |
-| sqlite3.rs             | 212608        |             |
-| shell.rs               | 41717         | `sqlite3_in_rust` 19893720    |
+| Original rust File Name | Lines of Code | Binary size |
+| ----------------------- | ------------- | ----------- |
+| sqlite3.rs              | 212608        |             |
+| shell.rs                | 41717         | `sqlite3_in_rust` 19893720    |
+
+Here are the stats for building the rust project:
+
+| Errors | Warnings |
+| ------ | -------- |
+| 7      | 6294     |
+
+After fixing the errors, 6294 warnings remain. running `cargo  +nightly  fix --bin "sqlite3_in_rust"` reduces the number of warnings to 4282. There are two types of warnings:
+1. warning: `variable fOo should have a snake case name` with the siggestion that it should be rewritten as `f_oo`.
+2. warning: path statement with no effect
 
 
 
