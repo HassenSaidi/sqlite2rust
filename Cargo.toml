@@ -1,0 +1,22 @@
+# Cargo.toml
+
+[package]
+name = "sqlite_in_rust"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+
+[lib]
+path = "src/lib.rs"
+
+
+[[bin]]
+name = "sqlite3_in_rust"
+path = "src/main.rs"
+
+
+[dependencies]
+libc = "0.2"
+f128 = "0.2.9"
+num-traits = "0.2.16"
+c2rust-bitfields = "0.18.0"
