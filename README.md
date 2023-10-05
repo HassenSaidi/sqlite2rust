@@ -137,7 +137,7 @@ Use ".open FILENAME" to reopen on a persistent database.
 sqlite>
 ```
 
-The tool c2rust seems to be working.
+The tool c2rust seems to be working!
 A significant code base such as SQLite can be made to work with little effort. 
 The tool produces unsafe Rust code that closely mirrors the input C code. T
 he primary goal of c2rust is to produce code that is functionally identical to the input C code.
@@ -151,7 +151,7 @@ project out of the generate Rust files. But overwall, the effort can be managed.
 ### The bad
 
 The current state of c2rust produces Rust code that is functionally equivalent to the original C code. 
-The produced code does not use appropriate Rust idioms. A refactoring tool is in the works to translate 
+FOr instance, the produced code does not use appropriate Rust idioms. A refactoring tool is in the works to translate 
 the unsafe Rust to an idiomatic safe Rust code. This might end up being a tall order as Rust is a richer 
 language, and eliminating `unsafe` mightg require some advanced code analysis.
 
@@ -161,10 +161,13 @@ A maintainer of a significant C code base might not recognize their application 
 A simple main function in C will turn into a Rust main function that calls the real main function 
 called main_0 with a structure that differs from the original C main. 
 
-Oddly, strings present in the original C code are not fown in the Rust code. A deeper look into the inner working of c2rust might 
+Oddly, strings present in the original C code are not found in the Rust code. A deeper look into the inner working of c2rust might 
 explain that. But the point is that the resulting Rust code will be hard to make sense of.
 
-The resulting code is unmaintainable. 
+The resulting code is unmaintainable. It is hard to imagine a C developer using the translater 
+(transpiler) to generated Rust code intended to be maintained and further developed. A complete
+re-write of the code might be necessary. Not sure how a refactoring tool can render the resulting Rust 
+code readable and maintainable.
 
 
 
