@@ -1,6 +1,6 @@
 # sqlite2rust
 
-This document describes the use of [c2rust](https://github.com/immunant/c2rust) to translate the popular [SQLite](https://sqlite.org/) database to [rust](https://www.rust-lang.org/). Rust supports bindings for the SQLite database through the [SQLite crate](https://crates.io/crates/sqlite). But there are no re-implementations of SQLite in Rust. The document describes the process of using c2rust to translate the C implementation into a running Rust implementation of SQLite. c2rust does produce Rust code that needs patching and fixing to be able to build. This document describes the good, bad, and ugly parts of using c2rust as a general process for translating a significant C code base into Rust.
+This document describes the use of [c2rust](https://github.com/immunant/c2rust) to translate the popular [SQLite](https://sqlite.org/) database to [rust](https://www.rust-lang.org/). SQLite is a very popular database installed on billions of devices. Rust supports bindings for the SQLite database through the [SQLite crate](https://crates.io/crates/sqlite). But there are no re-implementations of SQLite in Rust. The document describes the process of using c2rust to translate the C implementation into a running Rust implementation of SQLite. c2rust does produce Rust code that needs patching and fixing to be able to build. This document describes the good, bad, and ugly parts of using c2rust as a general process for translating a significant C code base into Rust.
 
 ## Using c2rust
 Here are the steps for translating SQLite C source code into Rust:
