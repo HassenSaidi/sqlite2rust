@@ -1,9 +1,9 @@
 # sqlite2rust
 
-This document describes the use of [c2rust](https://github.com/immunant/c2rust) to translate the popular [sqlite](https://sqlite.org/) database to [rust](https://www.rust-lang.org/). Rust supports bindings for the sqlite database through the [SQLite crate](https://crates.io/crates/sqlite). But there are no re-implementations of sqlite in rust. The document describes the process of using c2rust to translate the C implementation into a running rust implementation of sqlite. c2rust does produce rust code that needs patching and fixing to be able to build. This document describes the good, bad, and ugly parts of using c2rust as a general process for translating a significant C code base into rust.
+This document describes the use of [c2rust](https://github.com/immunant/c2rust) to translate the popular [SQLite](https://sqlite.org/) database to [rust](https://www.rust-lang.org/). Rust supports bindings for the SQLite database through the [SQLite crate](https://crates.io/crates/sqlite). But there are no re-implementations of SQLite in Rust. The document describes the process of using c2rust to translate the C implementation into a running Rust implementation of SQLite. c2rust does produce Rust code that needs patching and fixing to be able to build. This document describes the good, bad, and ugly parts of using c2rust as a general process for translating a significant C code base into Rust.
 
 ## Using c2rust
-Here are the steps for translating sqlite C source code into rust:
+Here are the steps for translating SQLite C source code into Rust:
 
 ### Download c2rust
 
@@ -25,17 +25,17 @@ To download `compiledb`, run the following command
 pip install compiledb
 ```
 
-### Download sqlite
+### Download SQLite
 Download the source code [here](https://sqlite.org/download.html). The current version is https://sqlite.org/2023/sqlite-autoconf-3430100.tar.gz.
-The source code for sqlite is organized in three main files:
+The source code for SQLite is organized in three main files:
 
 * a header file `sqlite3.h`.
 * a library file `sqlite3.c` that corresponds to the output library `libsqlite3.a`.
-* a shell wrapper for running sqlite from the commandline `shell.c` that corresponds to the output executable `sqlite3`.
+* a shell wrapper for running SQLite from the commandline `shell.c` that corresponds to the output executable `sqlite3`.
 
 ### Generate compile_commands.json
 
-in the sqlite source directory, run the folliwng:
+in the SQLite source directory, run the folliwng:
 
 ```bash
 # After running
@@ -48,17 +48,17 @@ This will produce in the same directory a `compile_commands.json` file. This des
 
 ### Running c2rust
 
-in the same directory, running the following commands translate the C code into rust code
+in the same directory, running the following commands translate the C code into Rust code
 
 ```bash
 c2rust transpile --emit-build-files compile_commands.json
 ```
 
-The result of the build is two rust files `sqlite3.rs` and `shell.rs`.
+The result of the build is two Rust files `sqlite3.rs` and `shell.rs`.
 
-### Building the rust project
+### Building the Rust project
 
-To build the output files into a rust executable, we use the following `Cargo.toml` file that describes the build of an executable called `sqlite_in_rust`. This file is the rust binary corresponding to the `sqlite3` C binary. We create an `src` directory where we move `shell.c` to `src/main.rs` and `sqlite3.rs` to `src/lib.rs`.
+To build the output files into a Rust executable, we use the following `Cargo.toml` file that describes the build of an executable called `sqlite_in_rust`. This file is the Rust binary corresponding to the `sqlite3` C binary. We create an `src` directory where we move `shell.c` to `src/main.rs` and `sqlite3.rs` to `src/lib.rs`.
 We use a build file `build.rs` to pass locally installed system libraries dependencies such as `zlib` and `readline`.
 
 ```bash
@@ -95,7 +95,7 @@ fn main() {
 }
 ```
 
-### Patching the rust code to build the rust project
+### Patching the Rust code to build the Rust project
 
 ## Evaluation
 
@@ -107,13 +107,13 @@ Here are the stats for the original C code
 | sqlite3.c            | 250808        |             |
 | shell.c              | 28615         | `sqlite3` 7962544     |
 
-Here are the stats for the generated rust code
-| Original rust File Name | Lines of Code | Binary size |
+Here are the stats for the generated Rust code
+| Original Rust File Name | Lines of Code | Binary size |
 | ----------------------- | ------------- | ----------- |
 | sqlite3.rs              | 212608        |             |
 | shell.rs                | 41717         | `sqlite3_in_rust` 19893720    |
 
-Here are the stats for building the rust project:
+Here are the stats for building the Rust project:
 
 | Errors | Warnings |
 | ------ | -------- |
@@ -126,7 +126,7 @@ After fixing the errors, 6294 warnings remain. running `cargo  +nightly  fix --b
 
 ### The good
 
-After fixing the rust output and getting rid of the errors, we get a working binary that seems to be working fine. Success!
+After fixing the Rust output and getting rid of the errors, we get a working binary that seems to be working fine. Success!
 
 ```bash
 vagrant@vagrant:/vagrant/sqlite-autoconf-3430100$ ./target/debug/sqlite3_in_rust 
@@ -137,27 +137,36 @@ Use ".open FILENAME" to reopen on a persistent database.
 sqlite>
 ```
 
-```c
-"The tool c2rust seems to be working.
-A significant code base such as sqlite can be made to work with little effort.
-A good understanding or C and rust is necessary to fix the rust build errors
-and ignore warnings that are not important to the correctness of the output".
-```
+The tool c2rust seems to be working.
+A significant code base such as SQLite can be made to work with little effort. 
+The tool produces unsafe Rust code that closely mirrors the input C code. T
+he primary goal of c2rust is to produce code that is functionally identical to the input C code.
+A good understanding or C and Rust is necessary to fix the Rust build errors
+and ignore warnings that are not important to the correctness of the output.
+SQLite code structure is simple as it exists in two source files and a header file.
+More complicated build of C projects require a bit more effort to build a Rust 
+project out of the generate Rust files. But overwall, the effort can be managed. 
+
+
 ### The bad
 
-```c
-/*
-The tool c2rust seems to be working.
-A significant code base such as sqlite can be made to work with little effort.
-A good understanding or C and rust is necessary to fix the rust build errors
-and ignore warnings that are not important to the correctness of the output.
-*/
-```
+The current state of c2rust produces Rust code that is functionally equivalent to the original C code. 
+The produced code does not use appropriate Rust idioms. A refactoring tool is in the works to translate 
+the unsafe Rust to an idiomatic safe Rust code. This might end up being a tall order as Rust is a richer 
+language, and eliminating `unsafe` mightg require some advanced code analysis.
 
 ### The ugly
 
-```c
-"The tool c2rust seems to be working. A significant code base such as sqlite can be made to work with little effort. A good understanding or C and rust is necessary to fix the rust build errors and ignore warnings that are not important to the correctness of the output.
-```
+A maintainer of a significant C code base might not recognize their application in the generated Rust code.
+A simple main function in C will turn into a Rust main function that calls the real main function 
+called main_0 with a structure that differs from the original C main. 
+
+Oddly, strings present in the original C code are not fown in the Rust code. A deeper look into the inner working of c2rust might 
+explain that. But the point is that the resulting Rust code will be hard to make sense of.
+
+The resulting code is unmaintainable. 
+
+
+
 
 
